@@ -1,10 +1,6 @@
 package modules
 
-import (
-	"fmt"
-
-	"github.com/kirigayakazushin/mkacgAPI/modules"
-)
+import "fmt"
 
 func News(cs ...string) {
 	//规定参数顺序
@@ -13,7 +9,7 @@ func News(cs ...string) {
 	   2.page
 	*/
 	if cs[0] == "json" {
-		modules.News_index("s")
+		News_index("s")
 	}
 }
 func Bangumi(cs ...string) {
