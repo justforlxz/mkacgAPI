@@ -6,6 +6,7 @@ import (
 	"regexp"
 
 	"github.com/PuerkitoBio/goquery"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 //version 2 直接解析
