@@ -3,8 +3,7 @@ package modules
 import (
 	"fmt"
 
-	
-"github.com/kirigayakazushin/mkacgAPI/modules"
+	"github.com/kirigayakazushin/mkacgAPI/modules"
 )
 
 func News(cs ...string) {
