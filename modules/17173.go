@@ -14,7 +14,6 @@ type Index struct {
 	Title  string
 	Source string
 	Img    string
-	Next   string
 	Url    string
 }
 type Page struct {
