@@ -24,14 +24,14 @@ func News(r render.Render, w http.ResponseWriter, request *http.Request) {
 	if request.FormValue("type") == "json" {
 		if len(request.FormValue("p")) == 0 {
 			T1, T2 := News_index("http://acg.17173.com")
-			r.JSON(200, map[string]interface{}{"news": T1, "page": T2})
+			r.JSON(200, map[string]interface{}{"News": T1, "Page": T2})
 		} else if request.FormValue("p") == "begin" || request.FormValue("p") == "end" {
 			T1, T2 := News_index("http://acg.17173.com")
-			r.JSON(200, map[string]interface{}{"news": T1, "page": T2})
+			r.JSON(200, map[string]interface{}{"News": T1, "Page": T2})
 		} else {
 			var Page = "http://acg.17173.com/index_" + request.FormValue("p") + ".shtml"
 			T1, T2 := News_index(Page)
-			r.JSON(200, map[string]interface{}{"news": T1, "page": T2})
+			r.JSON(200, map[string]interface{}{"News": T1, "Page": T2})
 		}
 	} else {
 		r.Text(200, "请输入正确的参数")
