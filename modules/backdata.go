@@ -1,7 +1,6 @@
 package modules
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/martini-contrib/render"
@@ -22,10 +21,7 @@ func News(r render.Render, w http.ResponseWriter, request *http.Request) {
 	   2.page
 	*/
 	if request.FormValue("type") == "json" {
-		if len(request.FormValue("p")) == 0 {
-			T1, T2 := News_index("http://acg.17173.com")
-			r.JSON(200, map[string]interface{}{"Newssource": T1, "Page": T2})
-		} else if request.FormValue("p") == "begin" || request.FormValue("p") == "end" {
+		if request.FormValue("p") == "begin" || request.FormValue("p") == "end" || len(request.FormValue("p")) == 0 {
 			T1, T2 := News_index("http://acg.17173.com")
 			r.JSON(200, map[string]interface{}{"Newssource": T1, "Page": T2})
 		} else {
@@ -38,8 +34,6 @@ func News(r render.Render, w http.ResponseWriter, request *http.Request) {
 	}
 
 }
-func Bangumi(cs ...string) {
-	for _, num := range cs {
-		fmt.Println(num)
-	}
+func Bangumi(r render.Render, w http.ResponseWriter, request *http.Request) {
+	r.JSON(200, Bangumilist())
 }

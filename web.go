@@ -16,6 +16,6 @@ func main() {
 	}))
 
 	m.Get("/news", modules.News)
-	m.Get("/bangumi", modules.News)
+	m.Get("/bangumi", modules.Bangumi)
 	m.Run()
 }

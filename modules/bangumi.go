@@ -1,6 +1,7 @@
 package modules
 
 import (
+	"encoding/json"
 	"log"
 
 	"github.com/PuerkitoBio/goquery"
@@ -15,24 +16,31 @@ type Timeline struct {
 	Bangumilist []BangumiList
 }
 type BangumiList struct {
-	List string
+	List  string
+	Title string
 }
 
-func Bangumilist() []Timeline {
-	bilibili := []Timeline{}
-	tempacg := Timeline{}
-	doc, err := goquery.NewDocument("http://bangumi.bilibili.com/anime/timeline")
+type Bilibili struct {
+	Bangumi bangumi `json:"bangumi"`
+}
+type bangumi struct {
+	List []list
+}
+type list struct {
+	Aera       string `json:"area"`
+	Cover      string `json:"cover"`
+	Title      string `json:"title"`
+	Season_id  int    `json:"season_id"`
+	Weekday    int    `json:"weekday"`
+	Play_count int    `json:"play_count"`
+}
+
+func Bangumilist() Bilibili {
+	doc, err := goquery.NewDocument("http://www.bilibili.com/index/index-bangumi-timeline.json")
 	if err != nil {
 		log.Fatal(err)
 	}
-	doc.Find(".bangumi-list").Each(func(i int, contentSelection *goquery.Selection) {
-		c := contentSelection.Find(".side-l")
-		tempacg.WeekDay = c.Text()
-		tempacg.Url, _ = contentSelection.Find(".preview").Attr("href")
-		tempacg.Title, _ = contentSelection.Find(".preview").Attr("title")
-		tempacg.Img, _ = contentSelection.Find("img").Attr("src")
-		tempacg.num = contentSelection.Find("span").Text()
-	})
-	bilibili = append(bilibili, tempacg)
-	return bilibili
+	var s Bilibili
+	json.Unmarshal([]byte(doc.Text()), &s)
+	return s
 }
